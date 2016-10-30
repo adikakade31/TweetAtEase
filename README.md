@@ -1,6 +1,6 @@
-# Project 3 - *Name of App Here*
+# Project 3 - TweetAtEase
 
-**Name of your app** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
+**TweetAtEasep** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
 Time spent: 30 hours spent in total
 
