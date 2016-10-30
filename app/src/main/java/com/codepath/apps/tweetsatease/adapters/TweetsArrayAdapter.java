@@ -212,31 +212,26 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
     }
 
     public void populateTimeline(final View view, TwitterClient client) {
-        Log.d("DEBUG", "In populate timeline");
         client.getHomeTimeline(new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("DEBUG", json.toString());
                 clear();
                 addAll(Tweet.fromJSONArray(json));
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                //Log.d("DEBUG", errorResponse.toString());
                 Helper.showErrorSnackBar(view, ResponseStatus.REQUEST_FAILURE );
             }
         });
     }
 
     public void addMoreToTimeline(final View view, TwitterClient client) {
-        Log.d("DEBUG", "In add more to tiimeline");
         client.getHomeTimeline(new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("DEBUG", json.toString());
                 addAll(Tweet.fromJSONArray(json));
             }
 
