@@ -143,14 +143,11 @@ public class Tweet extends BaseModel implements Parcelable {
                     this.user.save();
                     this.reTweetUser = new User(jsonObject.getJSONObject("user")).getName();
                     this.wasRetweeted = true;
-                    //this.tweetID = jsonObject.getJSONObject("retweeted_status").getLong("id");
                 } else {
                     this.user = new User(jsonObject.getJSONObject("user"));
                     this.user.save();
                     this.wasRetweeted = false;
                     this.reTweetUser = null;
-                    User dummyUSer = TableUserOperations.byUserName(this.user.getName());
-                    Log.d("DEBUG", "dummyUser name = "+dummyUSer.getName());
                 }
 
                 if (jsonObject.has("extended_entities")) {
