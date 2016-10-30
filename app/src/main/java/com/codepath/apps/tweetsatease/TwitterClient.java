@@ -13,11 +13,11 @@ import com.loopj.android.http.RequestParams;
 import com.codepath.apps.tweetsatease.api_helpers.HomeTimelineFetcher;
 
 public class TwitterClient extends OAuthBaseClient {
-	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change this
-	public static final String REST_URL = "https://api.twitter.com/1.1"; // Change this, base API URL
-	public static final String REST_CONSUMER_KEY = "BEEtO51Gw8KravG90cRfcIOpq";       // Change this
-	public static final String REST_CONSUMER_SECRET = "fUs9N9YeQnYVa4tTml7H3mlbhf5C2yW8PEYtpT2tsFYkalBJof"; // Change this
-	public static final String REST_CALLBACK_URL = "oauth://cptweetsatease"; // Change this (here and in manifest)
+	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; 
+	public static final String REST_URL = "https://api.twitter.com/1.1"; 
+	public static final String REST_CONSUMER_KEY = "YOUR_CONSUMER_KEY" //Change this
+	public static final String REST_CONSUMER_SECRET = "YOUR_CONSUMER_SECRET"; // Change this
+	public static final String REST_CALLBACK_URL = "oauth://cptweetsatease"; 
     public static final String GET_CURRENT_USER = "account/verify_credentials.json";
 	public static final String UPDATE_STATUS = "statuses/update.json";
     public static final String ADD_FAVORITE = "favorites/create.json";
