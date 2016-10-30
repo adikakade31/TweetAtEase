@@ -112,29 +112,6 @@ public class TimelineActivity
                 android.R.color.holo_red_light);
 
         mFab = (FloatingActionButton) findViewById(R.id.fab_compose);
-
-        mRvTweets.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if (dy > 0 ||dy<0 && mFab.isShown())
-                {
-                    mFab.hide();
-                }
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
-            {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    mFab.show();
-                }
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
-
     }
 
     public void setUpListeners(){
@@ -173,6 +150,28 @@ public class TimelineActivity
                 }else {
                     Helper.showErrorSnackBar(findViewById(android.R.id.content), ResponseStatus.NO_INTERNET_CONNECTION);
                 }
+            }
+        });
+
+        mRvTweets.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                if (dy > 0 ||dy<0 && mFab.isShown())
+                {
+                    mFab.hide();
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
+            {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    mFab.show();
+                }
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
     }
