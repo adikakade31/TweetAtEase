@@ -157,7 +157,7 @@
             android:src="@drawable/ic_reply" />
 
         <TextView
-            android:id="@+id/tvReplyToTweet"
+            android:id="@+id/tvReplyToLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/min_separator"
