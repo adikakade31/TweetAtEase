@@ -149,13 +149,9 @@ public class TweetDetailActivity extends AppCompatActivity implements TwitterAct
         toast.show();
     }
 
-    TextWatcher textWatcher = new TextWatcher() {
+    TextWatcher mEditTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
         }
 
         @Override
@@ -164,14 +160,18 @@ public class TweetDetailActivity extends AppCompatActivity implements TwitterAct
             mTvTweetLength.setText(Integer.toString(charsRemaining));
 
             if (charsRemaining >= 0 && charsRemaining < 140) {
-                mButtonTweet.setEnabled(true);
                 mTvTweetLength.setTextColor(getResources().getColor(R.color.dodger_blue));
+                mButtonTweet.setEnabled(true);
             } else {
-                mButtonTweet.setEnabled(false);
                 if (charsRemaining < 0)
                     mTvTweetLength.setText("0");
                 mTvTweetLength.setTextColor(getResources().getColor(R.color.dark_red));
+                mButtonTweet.setEnabled(false);
             }
+        }
+        
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
         }
     };
 
