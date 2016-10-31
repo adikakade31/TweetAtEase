@@ -34,15 +34,15 @@ public class ComposeTweetFragment extends DialogFragment {
     private TextView mTvName;
     private TextView mTvScreenName;
     private EditText mEtTweet;
-    private TextView mTvTweetLength;
-    private TextView mTvReplyToTweet;
+    private TextView mTvLengthThreshold;
+    private TextView mTvReplyLabel;
     private Button mButtonTweet;
     private LinearLayout replyBox;
     User currentUser;
     Tweet tweetToReply;
 
     final static String CURRENT_USER = "CurrentUser";
-    final static int TWEET_LENGTH = 140;
+    final static int TWEET_LENGTH_THRESHOLD = 140;
     final static String REPLY_TO_TWEET = "ReplyToTweet";
 
 
@@ -88,13 +88,13 @@ public class ComposeTweetFragment extends DialogFragment {
         mTvScreenName = (TextView) view.findViewById(R.id.tvScreenName);
         mEtTweet = (EditText) view.findViewById(R.id.etTweet);
         mButtonTweet = (Button) view.findViewById(R.id.buttonTweet);
-        mTvTweetLength = (TextView) view.findViewById(R.id.tvTweetLength);
+        mTvLengthThreshold = (TextView) view.findViewById(R.id.tvLengthThreshold);
         replyBox = (LinearLayout) view.findViewById(R.id.replyBox);
         replyBox.setVisibility(tweetToReply == null ? View.GONE : View.VISIBLE);
-        mTvReplyToTweet = (TextView) view.findViewById(R.id.tvReplyToTweet);
+        mTvReplyLabel = (TextView) view.findViewById(R.id.tvReplyLabel);
 
         if (tweetToReply != null) {
-            mTvReplyToTweet.setText("Reply to" + " " + tweetToReply.getUser().getName());
+            mTvReplyLabel.setText("Reply to" + " " + tweetToReply.getUser().getName());
             mEtTweet.setText(tweetToReply.getUser().getScreenName() + " ");
             mEtTweet.setSelection(mEtTweet.getText().length());
         }
@@ -108,6 +108,8 @@ public class ComposeTweetFragment extends DialogFragment {
             }
         });
 
+        mEtTweet.addTextChangedListener(mEditTextWatcher);
+
         mButtonTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,11 +117,9 @@ public class ComposeTweetFragment extends DialogFragment {
             }
         });
 
-        mEtTweet.addTextChangedListener(textWatcher);
-
     }
 
-    TextWatcher textWatcher = new TextWatcher() {
+    TextWatcher mEditTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -130,17 +130,17 @@ public class ComposeTweetFragment extends DialogFragment {
 
         @Override
         public void afterTextChanged(Editable s) {
-            int charsRemaining = TWEET_LENGTH - s.length();
-            mTvTweetLength.setText(Integer.toString(charsRemaining));
+            int charsRemaining = TWEET_LENGTH_THRESHOLD - s.length();
+            mTvLengthThreshold.setText(Integer.toString(charsRemaining));
 
-            if (charsRemaining >= 0 && charsRemaining < TWEET_LENGTH) {
+            if (charsRemaining >= 0 && charsRemaining < TWEET_LENGTH_THRESHOLD) {
                 mButtonTweet.setEnabled(true);
-                mTvTweetLength.setTextColor(getResources().getColor(R.color.dodger_blue));
+                mTvLengthThreshold.setTextColor(getResources().getColor(R.color.dodger_blue));
             } else {
                 mButtonTweet.setEnabled(false);
                 if (charsRemaining < 0)
-                    mTvTweetLength.setText("0");
-                    mTvTweetLength.setTextColor(getResources().getColor(R.color.dark_red));
+                    mTvLengthThreshold.setText("0");
+                mTvLengthThreshold.setTextColor(getResources().getColor(R.color.dark_red));
             }
         }
     };
