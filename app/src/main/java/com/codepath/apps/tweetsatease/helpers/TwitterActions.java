@@ -21,21 +21,9 @@ public class TwitterActions {
         void onTweetSent(Tweet tweet);
     }
 
-    public interface OnReTweetListener {
-        void onReTweet(Tweet tweet, Tweet newTweet);
-    }
-
-    public interface OnFavoriteListener {
-        void onFavorite(Tweet tweet, Tweet newTweet);
-    }
-
-    public interface OnReplyListener {
-        void onReply(Tweet tweet);
-    }
-
-    public static void onTweet(TwitterClient client, String replyStatusID, String tweet, final OnTweetListener listener)
+    public static void onTweet(TwitterClient client, String id, String tweet, final OnTweetListener listener)
     {
-        client.composeTweet(tweet, replyStatusID, new JsonHttpResponseHandler() {
+        client.composeTweet(tweet, id, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -45,7 +33,7 @@ public class TwitterActions {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-
+        
             }
 
             @Override
@@ -54,6 +42,10 @@ public class TwitterActions {
             }
 
         });
+    }
+
+    public interface OnReTweetListener {
+        void onReTweet(Tweet tweet, Tweet newTweet);
     }
 
     public static void onReTweet(TwitterClient client, final Tweet tweet, final OnReTweetListener listener) {
@@ -69,7 +61,16 @@ public class TwitterActions {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
 
             }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject jsonObject) {
+
+            }
         });
+    }
+
+    public interface OnFavoriteListener {
+        void onFavorite(Tweet tweet, Tweet newTweet);
     }
 
     public static void onFavorite(TwitterClient client, final Tweet tweet, final OnFavoriteListener listener) {
@@ -81,10 +82,19 @@ public class TwitterActions {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject jsonObject) {
 
             }
         });
+    }
+
+    public interface OnReplyListener {
+        void onReply(Tweet tweet);
     }
 
     public static void onReply(final Tweet tweet, final OnReplyListener listener) {
