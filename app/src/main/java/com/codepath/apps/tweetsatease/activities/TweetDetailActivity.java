@@ -34,13 +34,13 @@ public class TweetDetailActivity extends AppCompatActivity implements TwitterAct
 
     private TextView mTvUsername;
     private TextView mTvScreenname;
-    private TextView mTvRetweetUser;
+    private TextView mTvRetweetedUser;
     private TextView mTvBody;
     private TextView mTvTimeAgo;
     private TextView mTvRetweetCount;
     private TextView mTvFavoriteCount;
     private TextView mTvTweetLength;
-    private TextView mTvReplyToTweet;
+    private TextView mTvReplyToLabel;
     private EditText mEtReplyTweet;
     private LinearLayout mReplyBox;
     private Button mButtonTweet;
@@ -74,9 +74,9 @@ public class TweetDetailActivity extends AppCompatActivity implements TwitterAct
         mTvTimeAgo = (TextView) findViewById(R.id.tvTimeAgo);
         mTvRetweetCount = (TextView) findViewById(R.id.tvRetweetCount);
         mTvFavoriteCount = (TextView) findViewById(R.id.tvFavoriteCount);
-        mTvRetweetUser = (TextView) findViewById(R.id.tvRetweetUser);
+        mTvRetweetedUser = (TextView) findViewById(R.id.tvRetweetUser);
         mTvTweetLength = (TextView) findViewById(R.id.tvTweetLength);
-        mTvReplyToTweet = (TextView) findViewById(R.id.tvReplyToTweet);
+        mTvReplyToLabel = (TextView) findViewById(R.id.tvReplyToLabel);
 
         mIvIconRetweeted = (ImageView) findViewById(R.id.ivIconRetweeted);
         mIvProfile = (ImageView) findViewById(R.id.ivProfilePic);
@@ -98,7 +98,7 @@ public class TweetDetailActivity extends AppCompatActivity implements TwitterAct
             }
         });
 
-        mEtReplyTweet.addTextChangedListener(textWatcher);
+        mEtReplyTweet.addTextChangedListener(mEditTextWatcher);
 
         mEtReplyTweet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,16 +114,16 @@ public class TweetDetailActivity extends AppCompatActivity implements TwitterAct
 
     public void populate(final Tweet tweet) {
         if (tweet.isWasRetweeted())
-            mTvRetweetUser.setText(tweet.getReTweetUser() + " Retweeted");
+            mTvRetweetedUser.setText(tweet.getReTweetUser() + " Retweeted");
 
-        mTvRetweetUser.setVisibility(tweet.isWasRetweeted() ? View.VISIBLE : View.GONE);
+        mTvRetweetedUser.setVisibility(tweet.isWasRetweeted() ? View.VISIBLE : View.GONE);
         mTvUsername.setText(tweet.getUser().getName());
         mTvScreenname.setText(tweet.getUser().getScreenName());
         mTvBody.setText(tweet.getBody());
         mTvTimeAgo.setText(tweet.getRelativeCreatedAt());
         mTvRetweetCount.setText(String.valueOf(tweet.getRetweetCount()));
         mTvFavoriteCount.setText(String.valueOf(tweet.getFavoriteCount()));
-        mTvReplyToTweet.setText("Reply to" + " " + tweet.getUser().getName());
+        mTvReplyToLabel.setText("Reply to" + " " + tweet.getUser().getName());
 
         mIvIconRetweeted.setVisibility(tweet.isWasRetweeted() ? View.VISIBLE : View.GONE);
         mIvProfile.setImageResource(android.R.color.transparent);
@@ -155,23 +155,23 @@ public class TweetDetailActivity extends AppCompatActivity implements TwitterAct
         }
 
         @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
         public void afterTextChanged(Editable s) {
             int charsRemaining = 140 - s.length();
             mTvTweetLength.setText(Integer.toString(charsRemaining));
 
             if (charsRemaining >= 0 && charsRemaining < 140) {
-                mTvTweetLength.setTextColor(getResources().getColor(R.color.dodger_blue));
                 mButtonTweet.setEnabled(true);
+                mTvTweetLength.setTextColor(getResources().getColor(R.color.dodger_blue));
             } else {
+                mButtonTweet.setEnabled(false);
                 if (charsRemaining < 0)
                     mTvTweetLength.setText("0");
                 mTvTweetLength.setTextColor(getResources().getColor(R.color.dark_red));
-                mButtonTweet.setEnabled(false);
             }
-        }
-        
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
         }
     };
 
