@@ -17,7 +17,7 @@
         android:id="@+id/ivIconRetweeted"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/ic_retweet_gray"
+        android:src="@drawable/ic_retweet_icon"
         android:layout_alignTop="@+id/tvRetweetUser"
         android:layout_alignRight="@+id/cardView"
         android:layout_alignEnd="@+id/cardView" />
