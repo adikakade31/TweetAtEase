@@ -141,7 +141,7 @@ public class TweetDetailActivity extends AppCompatActivity implements TwitterAct
         mTvTweetLength.setTextColor(getResources().getColor(R.color.dodger_blue));
 
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View view = layoutInflater.inflate(R.layout.reply_toast_layout, null);
+        View view = layoutInflater.inflate(R.layout.tweet_sent, null);
         Toast toast = new Toast(this);
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_LONG);
